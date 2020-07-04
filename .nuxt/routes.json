@@ -1,0 +1,16 @@
+[
+  {
+    "name": "client",
+    "path": "/client",
+    "component": "/Users/wailimcheng/workspace/cms_template/pages/client.vue",
+    "chunkName": "pages/client",
+    "_name": "_71eb64ac"
+  },
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "/Users/wailimcheng/workspace/cms_template/pages/login.vue",
+    "chunkName": "pages/login",
+    "_name": "_69770c98"
+  }
+]

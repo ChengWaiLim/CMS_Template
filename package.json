@@ -1,0 +1,32 @@
+{
+  "name": "cms_template",
+  "version": "1.0.0",
+  "description": "My groovy Nuxt.js project",
+  "author": "Cheng Wai Lim",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bootstrap-vue": "^2.15.0",
+    "element-ui": "^2.4.11",
+    "g": "^2.0.1",
+    "js-cookie": "^2.2.1",
+    "node-sass": "^4.13.1",
+    "nuxt": "^2.0.0",
+    "sass-loader": "^8.0.2",
+    "v-tooltip": "^2.0.3",
+    "vue-clickaway": "^2.2.2",
+    "vue-qrcode-reader": "^2.3.0",
+    "vue-ripple-directive": "^2.0.1",
+    "vue_basecomponent": "^0.2.11",
+    "xlsx": "^0.15.6"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^0.6.7"
+  }
+}
