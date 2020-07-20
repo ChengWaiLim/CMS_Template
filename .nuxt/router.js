@@ -25,11 +25,35 @@ export const routerOptions = {
   routes: [{
     path: "/client",
     component: _71eb64ac,
-    name: "client"
+    name: "client___en___default"
   }, {
     path: "/login",
     component: _69770c98,
-    name: "login"
+    name: "login___en___default"
+  }, {
+    path: "/cn/client",
+    component: _71eb64ac,
+    name: "client___cn"
+  }, {
+    path: "/cn/login",
+    component: _69770c98,
+    name: "login___cn"
+  }, {
+    path: "/en/client",
+    component: _71eb64ac,
+    name: "client___en"
+  }, {
+    path: "/en/login",
+    component: _69770c98,
+    name: "login___en"
+  }, {
+    path: "/zh/client",
+    component: _71eb64ac,
+    name: "client___zh"
+  }, {
+    path: "/zh/login",
+    component: _69770c98,
+    name: "login___zh"
   }],
 
   fallback: false

@@ -1,14 +1,56 @@
 [
   {
-    "name": "client",
+    "name": "client___en___default",
     "path": "/client",
     "component": "/Users/wailimcheng/workspace/cms_template/pages/client.vue",
     "chunkName": "pages/client",
     "_name": "_71eb64ac"
   },
   {
-    "name": "login",
+    "name": "login___en___default",
     "path": "/login",
+    "component": "/Users/wailimcheng/workspace/cms_template/pages/login.vue",
+    "chunkName": "pages/login",
+    "_name": "_69770c98"
+  },
+  {
+    "name": "client___cn",
+    "path": "/cn/client",
+    "component": "/Users/wailimcheng/workspace/cms_template/pages/client.vue",
+    "chunkName": "pages/client",
+    "_name": "_71eb64ac"
+  },
+  {
+    "name": "login___cn",
+    "path": "/cn/login",
+    "component": "/Users/wailimcheng/workspace/cms_template/pages/login.vue",
+    "chunkName": "pages/login",
+    "_name": "_69770c98"
+  },
+  {
+    "name": "client___en",
+    "path": "/en/client",
+    "component": "/Users/wailimcheng/workspace/cms_template/pages/client.vue",
+    "chunkName": "pages/client",
+    "_name": "_71eb64ac"
+  },
+  {
+    "name": "login___en",
+    "path": "/en/login",
+    "component": "/Users/wailimcheng/workspace/cms_template/pages/login.vue",
+    "chunkName": "pages/login",
+    "_name": "_69770c98"
+  },
+  {
+    "name": "client___zh",
+    "path": "/zh/client",
+    "component": "/Users/wailimcheng/workspace/cms_template/pages/client.vue",
+    "chunkName": "pages/client",
+    "_name": "_71eb64ac"
+  },
+  {
+    "name": "login___zh",
+    "path": "/zh/login",
     "component": "/Users/wailimcheng/workspace/cms_template/pages/login.vue",
     "chunkName": "pages/login",
     "_name": "_69770c98"
