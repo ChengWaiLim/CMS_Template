@@ -1,8 +1,68 @@
-// body
-//     margin: 0px
-// #__nuxt
-//     width: 100%
-//     height: 100%
+$pc-media: 1024px
+$pcs-media: 1023px
+$pad-media: 768px
+$pads-media: 767px
+$phone-media: 480px
+$phones-media: 479px
+
+@mixin pc-width() 
+  @media all and (min-width: $pc-media) 
+    @content
+@mixin pad-width() 
+    @media all and (min-width:$pad-media) and (max-width: $pcs-media) 
+        @content
+@mixin small-pad-width() 
+    @media all and (min-width: $phone-media) and (max-width:$pads-media) 
+        @content
+@mixin phone-width() 
+    @media all and (max-width: $phones-media) 
+        @content       
+
+@mixin responsive-font-size($size) 
+    @include pc-width 
+        font-size: $size *  $pc-width-ratio
+    @include pad-width 
+        font-size: $size *  $pad-width-ratio
+    @include small-pad-width 
+        font-size: $size *  $small-pad-width-ratio
+    @include phone-width
+        font-size: $size *  $phone-width-ratio
+@mixin responsive-width($size) 
+    @include pc-width 
+        width: $size *  $pc-width-ratio
+    @include pad-width 
+        width: $size *  $pad-width-ratio
+    @include small-pad-width 
+        width: $size *  $small-pad-width-ratio
+    @include phone-width
+        width: $size *  $phone-width-ratio
+@mixin responsive-margin-left($size) 
+    @include pc-width 
+        margin-left: $size *  $pc-width-ratio
+    @include pad-width 
+        margin-left: $size *  $pad-width-ratio
+    @include small-pad-width 
+        margin-left: $size *  $small-pad-width-ratio
+    @include phone-width
+        margin-left: $size *  $phone-width-ratio
+@mixin responsive-padding-left($size) 
+    @include pc-width 
+        padding-left: $size *  $pc-width-ratio
+    @include pad-width 
+        padding-left: $size *  $pad-width-ratio
+    @include small-pad-width 
+        padding-left: $size *  $small-pad-width-ratio
+    @include phone-width
+        padding-left: $size *  $phone-width-ratio
+@mixin responsive-padding-left-important($size) 
+    @include pc-width 
+        padding-left: $size *  $pc-width-ratio !important
+    @include pad-width 
+        padding-left: $size *  $pad-width-ratio !important
+    @include small-pad-width 
+        padding-left: $size *  $small-pad-width-ratio !important
+    @include phone-width
+        padding-left: $size *  $phone-width-ratio !important
 html
     width: 100%
     height: 100%
@@ -34,11 +94,13 @@ body
     margin-top: 16px
 .margin-bottom-16
     margin-bottom: 16px
-.padding-8
-    padding: 8px
 .margin-horizontal-8
     margin-left: 8px
     margin-right: 8px
+.margin-8
+    margin: 8px
+.padding-8
+    padding: 8px
 .font-36
     font-size: 36px
 .font-24
@@ -47,6 +109,10 @@ body
     font-size: 18px
 .file-upload-input
   position: absolute
+.space-between-row
+    display: flex
+    justify-content: space-between
+    align-items: center
 
 @keyframes fade-in
   0%
