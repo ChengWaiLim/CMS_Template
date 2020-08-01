@@ -1,42 +1,12 @@
-$big-pc-media: 1340px
-$pc-media: 1024px
-$pad-media: 768px
-
+@import "vue_basecomponent/main.sass"
 html
-    font: 18px Arial, sans-serif
-@media all and (max-width: $pc-media) 
+    font: 18px Arial, sans-serif 
+@media all and (max-width: $big-pc-media) 
     html
         font: 15px Arial, sans-serif
-@media all and (max-width:$pad-media) 
+@media all and (max-width: $pc-media) 
     html
         font: 12px Arial, sans-serif
-.mb-5
-    margin-bottom: .5em
-html
-    width: 100%
-    height: 100%
-body
-    width: 100%
-    height: 100%
-    margin: 0px
-#__nuxt
-    margin: 0px
-    width: 100%
-    height: 100%
-#__layout
-    width: 100%
-    height: 100%
-.file-upload-input
-  position: absolute
-.space-between-row
-    display: flex
-    justify-content: space-between
-    align-items: center
-
-@keyframes fade-in
-  0%
-    opacity: 0
-  100%
-    opacity: 1
-
-
+@media all and (max-width:$pad-media) 
+    html
+        font: 10px Arial, sans-serif
