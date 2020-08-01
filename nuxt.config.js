@@ -31,6 +31,7 @@ export default {
    ** Global CSS
    */
   css: [
+    "vue_basecomponent/main.sass",
     "element-ui/lib/theme-chalk/index.css",
     "@/static/transition.sass",
     "@/static/main.sass",
@@ -40,7 +41,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["@/plugins/element-ui", "@/plugins/global.js"],
+  plugins: ["@/plugins/element-ui", "@/plugins/global.js", "@/plugins/global.js"],
   /*
    ** Nuxt.js dev-modules
    */

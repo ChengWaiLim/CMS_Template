@@ -5,12 +5,12 @@
         <div class="main-page" :class="classObj">
             <c-m-s-header :style="headerStyle">
                 <div slot="left">
-                    <navigation-bar-toggle-button :isActive="isNavigationBarOpened" :toggleClick="toggleNavigationBarChange" class="margin-left-14"></navigation-bar-toggle-button>
+                    <navigation-bar-toggle-button :isActive="isNavigationBarOpened" :toggleClick="toggleNavigationBarChange" class="ml-8"></navigation-bar-toggle-button>
                 </div>
                 <div slot="right" class="right-cms-header">
-                    <language-button class="margin-right-14" />
-                    <el-button class="text-button margin-right-14" type="text">William</el-button>
-                    <el-button @click="handleLogOut" class="margin-right-14">{{$t('Log Out')}}</el-button>
+                    <language-button class="mr-8" />
+                    <el-button class="text-button mr-8" type="text">William</el-button>
+                    <el-button @click="handleLogOut" class="mr-8">{{$t('Log Out')}}</el-button>
                 </div>
             </c-m-s-header>
             <div class="page">
@@ -32,14 +32,13 @@
 import {
     mapGetters
 } from "vuex";
-import NavigationBar from "@/components/NavigationBar"
 import {
-    NavigationBarToggleButton,
-    CMSHeader,
     BaseLabel,
-    LanguageButton,
+    NavigationBar,
+    CMSHeader,
+    NavigationBarToggleButton,
+    LanguageButton
 } from "vue_basecomponent";
-import TaskBox from "@/components/TaskBox/TaskBox"
 export default {
     middleware: "default",
     components: {
@@ -73,25 +72,79 @@ export default {
         return {
             currentPath: $nuxt.$route.path,
             dialogVisible: true,
-            menu: [
+            menu: [{
+                    name: this.$t("Master Set up"),
+                    icon: "el-icon-collection",
+                    children: [{
+                            path: "/crm/system_parameter",
+                            name: this.$t("System Parameter"),
+                            icon: "el-icon-set-up"
+                        },
+                        {
+                            path: "/crm/developer",
+                            name: this.$t("Developers Master"),
+                            icon: "el-icon-office-building"
+                        },
+                        {
+                            path: "/crm/project",
+                            name: this.$t("Project Master"),
+                            icon: "el-icon-s-management"
+                        },
+                        {
+                            path: "/crm/client",
+                            name: this.$t("Client Master"),
+                            icon: "el-icon-s-order"
+                        },
+                        {
+                            path: "/crm/staff",
+                            name: this.$t("Staff Master"),
+                            icon: "el-icon-user",
+                        },
+                    ]
+                },
+                {
+                    path: "/crm/campaign",
+                    name: this.$t("Campaign Management"),
+                    icon: "el-icon-s-cooperation"
+                },
+                {
+                    name: this.$t("Event Management"),
+                    icon: "el-icon-location",
+                    children: [{
+                            path: "/crm/event",
+                            name: this.$t("Event"),
+                            icon: "el-icon-location",
+                        }, {
+                            path: "/crm/opportunity",
+                            name: this.$t("Opportunity Management"),
+                            icon: "el-icon-document",
+                        }, {
+                            path: "/crm/booking",
+                            name: this.$t("Customer Management"),
+                            icon: "el-icon-s-order"
+                        },
+                        {
+                            path: "/crm/payment_schedule",
+                            name: this.$t("Payment Management"),
+                            icon: "el-icon-date"
+                        }
+
+                    ]
+                },
                 {
                     path: "/crm/client",
-                    name: "Client Management",
+                    name: this.$t("Sales Processing"),
                     icon: "el-icon-s-custom",
-                },]
-            
+                },
+                {
+                    path: "/crm/dashboard",
+                    name: this.$t("Dashboard & Reports"),
+                    icon: "el-icon-s-marketing"
+                },
+            ]
         };
     },
     methods: {
-        cssRatioCalculate(cssString, ratio){
-    if(cssString.includes("px")){
-      var value = cssString.split("px")[0]
-      return value * ratio + "px"
-    }else if(cssString.includes("%")){
-      var value = cssString.split("%")[0]
-      return value * ratio + "%"
-    }
-  },
         toggleNavigationBarChange() {
             this.$store.dispatch("toggleSideBar");
         },
@@ -105,30 +158,27 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-@import "@/static/main.sass"
 @import "@/static/variables.scss"
 .navigation-bar
-    @include responsive-width($navigation-bar-width)
+    width: $navigation-bar-width
 .icon-language
     color: white
 .right-cms-header
     display: flex
     align-items: center
 .window-container
-  display: flex
-  height: 100%
-  width: 100%
-.table-title
-  font-size: 24px
+    display: flex
+    height: 100%
+    width: 100%
 .main-page
-  @include responsive-margin-left($navigation-bar-width)
-  height: 100%
-  &.hideSidebar
-    margin-left: 64px
-  .page
-    padding: 8px
-    padding-top: 50px
-    height: calc(100% - 58px)
-.text-button
-  color: white
+    margin-left: $navigation-bar-width
+    height: 100%
+    &.hideSidebar
+        margin-left: 64px
+    .page
+        padding: .5em
+        padding-top: 3em
+        height: calc(100% - 3em)
+    .text-button
+        color: white
 </style>
