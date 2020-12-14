@@ -1,6 +1,6 @@
 <template>
 <div class="window-container">
-    <navigation-bar class="navigation-bar" lineHeight="2.6em" :openStyle="openStyle" :path="currentPath" :menu="menu"></navigation-bar>
+    <navigation-bar id="navigation-bar"  :class="classObj" lineHeight="2.6em" :path="currentPath" :menu="menu"></navigation-bar>
     <el-col>
         <div class="main-page" :class="classObj">
             <c-m-s-header :style="headerStyle">
@@ -8,7 +8,6 @@
                     <navigation-bar-toggle-button :isActive="isNavigationBarOpened" :toggleClick="toggleNavigationBarChange" class="ml-8"></navigation-bar-toggle-button>
                 </div>
                 <div slot="right" class="right-cms-header">
-                    <language-button class="mr-8" />
                     <el-button class="text-button mr-8" type="text">William</el-button>
                     <el-button @click="handleLogOut" class="mr-8">{{$t('Log Out')}}</el-button>
                 </div>
@@ -20,11 +19,6 @@
             </div>
         </div>
     </el-col>
-    <el-dialog :title="$t('OutStanding Task List')" :visible.sync="dialogVisible" width="70%">
-        <task-box event="The Oak Vancouver" date="28 Aug 2020" content="Formal Desposit" sales="Mary Wong" />
-        <task-box event="Urban Village Cambodia" date="29 Aug 2020" content="Booking from signing" sales="Peter Chan" />
-        <task-box event="Tokyo Fun Fun Park" date="23 Sept 2020" content="Formal Desposit" sales="Emily Chan" />
-    </el-dialog>
 </div>
 </template>
 
@@ -33,21 +27,17 @@ import {
     mapGetters
 } from "vuex";
 import {
-    BaseLabel,
     NavigationBar,
-    CMSHeader,
     NavigationBarToggleButton,
-    LanguageButton
+    CMSHeader,
+    Request
 } from "vue_basecomponent";
 export default {
-    middleware: "default",
+    middleware: "authenticated",
     components: {
         NavigationBar,
         CMSHeader,
-        NavigationBarToggleButton,
-        LanguageButton,
-        BaseLabel,
-        TaskBox
+        NavigationBarToggleButton
     },
     computed: {
         ...mapGetters(["isNavigationBarOpened"]),
@@ -59,88 +49,148 @@ export default {
         headerStyle() {
             return {
                 width: this.isNavigationBarOpened ?
-                    this.cmsHeaderWidth : this.cmsHeaderWidthWithCollapseNavigationBar
+                    this.cmsHeaderWidth :
+                    this.cmsHeaderWidthWithCollapseNavigationBar,
+                background: this.mainTheme
             };
         },
-        openStyle() {
-            return {
-                width: this.navigationBarWidth
-            };
-        }
     },
     data() {
         return {
             currentPath: $nuxt.$route.path,
-            dialogVisible: true,
             menu: [{
-                    name: this.$t("Master Set up"),
-                    icon: "el-icon-collection",
-                    children: [{
-                            path: "/crm/system_parameter",
-                            name: this.$t("System Parameter"),
-                            icon: "el-icon-set-up"
-                        },
-                        {
-                            path: "/crm/developer",
-                            name: this.$t("Developers Master"),
-                            icon: "el-icon-office-building"
-                        },
-                        {
-                            path: "/crm/project",
-                            name: this.$t("Project Master"),
-                            icon: "el-icon-s-management"
-                        },
-                        {
-                            path: "/crm/client",
-                            name: this.$t("Client Master"),
-                            icon: "el-icon-s-order"
-                        },
-                        {
-                            path: "/crm/staff",
-                            name: this.$t("Staff Master"),
-                            icon: "el-icon-user",
-                        },
-                    ]
-                },
-                {
-                    path: "/crm/campaign",
-                    name: this.$t("Campaign Management"),
-                    icon: "el-icon-s-cooperation"
-                },
-                {
-                    name: this.$t("Event Management"),
-                    icon: "el-icon-location",
-                    children: [{
-                            path: "/crm/event",
-                            name: this.$t("Event"),
-                            icon: "el-icon-location",
-                        }, {
-                            path: "/crm/opportunity",
-                            name: this.$t("Opportunity Management"),
-                            icon: "el-icon-document",
-                        }, {
-                            path: "/crm/booking",
-                            name: this.$t("Customer Management"),
-                            icon: "el-icon-s-order"
-                        },
-                        {
-                            path: "/crm/payment_schedule",
-                            name: this.$t("Payment Management"),
-                            icon: "el-icon-date"
-                        }
-
-                    ]
-                },
-                {
-                    path: "/crm/client",
-                    name: this.$t("Sales Processing"),
+                    name: this.$t('System Admin'),
                     icon: "el-icon-s-custom",
+                    bgColor: 'red',
+                    auth: this.checkReadPermission("/Master/Reference"),
+                    children:[
+                        {
+                            path: "/Master/Reference",
+                            name: this.$t('Reference Setting'),
+                            icon: "el-icon-location",
+                        }
+                    ]
                 },
                 {
-                    path: "/crm/dashboard",
-                    name: this.$t("Dashboard & Reports"),
-                    icon: "el-icon-s-marketing"
+                    name: this.$t('Ordering'),
+                    icon: "el-icon-s-order",
+                    children: [{
+                        path: "/Order/CW-AllOrder",
+                        name: this.$t('Chemical Waste'),
+                        icon: "el-icon-delete",
+                        auth: this.checkReadPermission("/Order/CW-AllOrder"),
+                    },{
+                        path: "/Order/DG-AllOrder",
+                        name: this.$t('Dangerous Goods'),
+                        icon: "el-icon-warning",
+                        auth: this.checkReadPermission("/Order/DG-AllOrder"),
+                    },
+                    {
+                        path: "/Order/LN-AllOrder",
+                        name: this.$t('Liquid Nitrogen'),
+                        icon: "el-icon-refrigerator",
+                        auth: this.checkReadPermission("/Order/LN-AllOrder"),
+                    }]
                 },
+                {
+                    path: "/StockTake/AllStockTake",
+                    name: this.$t('Stock Take'),
+                    icon: "el-icon-edit-outline",
+                    auth: this.checkReadPermission("/StockTake/AllStockTake"),
+                },
+                {
+                    name: this.$t('Stock Inventory'),
+                    icon: "el-icon-box",
+                    children: [
+                        // {
+                        //     path: "/Inventory/AllLocation",
+                        //     name: this.$t('Location'),
+                        //     icon: "el-icon-location"
+                        // },
+                        {
+                            path: "/Inventory/AllDepartment",
+                            name: this.$t('Department'),
+                            icon: "el-icon-office-building",
+                            auth: this.checkReadPermission("/Inventory/AllDepartment"),
+                        }
+                    ]
+                },
+                {
+                    path: "/Master/DutySheet",
+                    name: this.$t('Duty Sheet'),
+                    icon: "el-icon-date",
+                    auth: this.checkReadPermission("/Master/DutySheet"),
+                },
+                {
+                    icon: "el-icon-document",
+                    name: this.$t('Report'),
+                    children: [{
+                            path: "/Document/Monthly_Statement",
+                            name: this.$t('Monthly Statement'),
+                            icon: "el-icon-document-copy",
+                            auth: this.checkReadPermission("/Document/Monthly_Statement"),
+                        },
+                        {
+                            path: "/Document/FEO_Summary",
+                            name: this.$t('FEO Summary'),
+                            icon: "el-icon-document",
+                            auth: this.checkReadPermission("/Document/FEO_Summary"),
+                        },
+                        // {
+                        //     path: "/Document/Test",
+                        //     name: this.$t('Test'),
+                        //     icon: "el-icon-document"
+                        // },
+                        {
+                            path: "/Document/Annual_Report",
+                            name: this.$t('Annual Report'),
+                            icon: "el-icon-data-line",
+                            auth: this.checkReadPermission("/Document/Annual_Report"),
+                        },
+                    ]
+                },
+                {
+                    name: this.$t('Master Setup'),
+                    icon: "el-icon-s-operation",
+                    children: [{
+                            path: "/Master/Location",
+                            name: this.$t('Location'),
+                            icon: "el-icon-location",
+                            auth: this.checkReadPermission("/Master/Location"),
+                        },
+                        {
+                            path: "/Master/Department",
+                            name: this.$t('Department'),
+                            icon: "el-icon-office-building",
+                            auth: this.checkReadPermission("/Master/Department"),
+                        },
+                        {
+                            path: "/Master/Account",
+                            name: this.$t('Account'),
+                            icon: "el-icon-bank-card",
+                            auth: this.checkReadPermission("/Master/Account"),
+                        },
+                        {
+                            path: "/Master/ChemicalWaste",
+                            name: this.$t('Chemical Waste'),
+                            icon: "el-icon-delete",
+                            auth: this.checkReadPermission("/Master/ChemicalWaste"),
+                        },
+                        {
+                            path: "/Master/DangerousGoods",
+                            name: this.$t('Dangerous Goods'),
+                            icon: "el-icon-warning",
+                            auth: this.checkReadPermission("/Master/DangerousGoods"),
+                        },
+                        {
+                            path: "/Master/Nitrogen",
+                            name: this.$t('Liquid Nitrogen'),
+                            icon: "el-icon-refrigerator",
+                            auth: this.checkReadPermission("/Master/Nitrogen"),
+                        }
+                    ]
+                },
+                
             ]
         };
     },
@@ -149,18 +199,25 @@ export default {
             this.$store.dispatch("toggleSideBar");
         },
         handleLogOut() {
-            this.$router.push({
-                path: "/crm/login"
-            });
-        },
+            Request.post(this, "user_logout", {token: this.$store.getters.token, ID: this.$store.getters.user.ID}, res => {
+                this.$store.dispatch('setToken', "")
+                this.$store.dispatch('setUser', null)
+                this.$router.push({
+                    path: "/login",
+                });
+            })
+        }
     }
 };
 </script>
 
 <style lang="sass" scoped>
+@import "@/static/main.sass"
 @import "@/static/variables.scss"
-.navigation-bar
+#navigation-bar
     width: $navigation-bar-width
+    &.hideSidebar
+        width: 64px
 .icon-language
     color: white
 .right-cms-header

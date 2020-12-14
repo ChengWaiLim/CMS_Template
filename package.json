@@ -24,7 +24,7 @@
     "vue-clickaway": "^2.2.2",
     "vue-qrcode-reader": "^2.3.11",
     "vue-ripple-directive": "^2.0.1",
-    "vue_basecomponent": "^0.8.41",
+    "vue_basecomponent": "^0.14.6",
     "xlsx": "^0.15.6"
   },
   "devDependencies": {

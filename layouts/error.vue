@@ -14,7 +14,7 @@
         </div>
         <div class="bullshit__headline">{{ message }}</div>
         <div class="bullshit__info">Please make sure you entered the correct url</div>
-        <router-link to="/crm/login" class="bullshit__return-home">Main Page</router-link>
+        <router-link to="/login" class="bullshit__return-home">Main Page</router-link>
       </div>
     </div>
   </div>
